@@ -7,7 +7,7 @@
 #
 
 class php::repo::redhat (
-  $yum_repo = 'remi_php56',
+  $yum_repo = 'remi_php71',
 ) {
 
   $releasever = $facts['os']['name'] ? {
@@ -24,9 +24,9 @@ class php::repo::redhat (
     priority   => 1,
   }
 
-  yumrepo { 'remi-php56':
-    descr      => 'Remi\'s PHP 5.6 RPM repository for Enterprise Linux $releasever - $basearch',
-    mirrorlist => "https://rpms.remirepo.net/enterprise/${releasever}/php56/mirror",
+  yumrepo { 'remi-php71':
+    descr      => 'Remi\'s PHP 7.1 RPM repository for Enterprise Linux $releasever - $basearch',
+    mirrorlist => "https://rpms.remirepo.net/enterprise/${releasever}/php71/mirror",
     enabled    => 1,
     gpgcheck   => 1,
     gpgkey     => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi',
