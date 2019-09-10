@@ -15,8 +15,19 @@ class php::repo::redhat (
     default       => '$releasever',  # Yum var
   }
 
+  case $php::globals::php_version {
+    '7.2': {
+      $version = 7.2
+      $version_short = '72'
+    }
+    default: { # 7.1
+      $version = 7.1
+      $version_short = '71'
+    }
+  }
+
   yumrepo { 'remi':
-    descr      => 'Remi\'s RPM repository for Enterprise Linux $releasever - $basearch',
+    descr      => "Remi's RPM repository for Enterprise Linux $releasever - $basearch",
     mirrorlist => "https://rpms.remirepo.net/enterprise/${releasever}/remi/mirror",
     enabled    => 1,
     gpgcheck   => 1,
@@ -24,9 +35,9 @@ class php::repo::redhat (
     priority   => 1,
   }
 
-  yumrepo { 'remi-php71':
-    descr      => 'Remi\'s PHP 7.1 RPM repository for Enterprise Linux $releasever - $basearch',
-    mirrorlist => "https://rpms.remirepo.net/enterprise/${releasever}/php71/mirror",
+  yumrepo { "$yum_repo":
+    descr      => "Remi's PHP $version RPM repository for Enterprise Linux $releasever - $basearch",
+    mirrorlist => "https://rpms.remirepo.net/enterprise/${releasever}/php${version_short}/mirror",
     enabled    => 1,
     gpgcheck   => 1,
     gpgkey     => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi',
